@@ -77,6 +77,7 @@ def index():
 def vote():
     annotator = get_current_annotator()
     if annotator.prev.id == int(request.form['prev_id']) and annotator.next.id == int(request.form['next_id']):
+        print("Vote Action: " + request.form['action'])
         if request.form['action'] == 'Skip':
             annotator.ignore.append(annotator.next)
         else:
