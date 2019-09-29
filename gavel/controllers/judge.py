@@ -76,6 +76,8 @@ def index():
 @requires_active_annotator(redirect_to='index')
 def vote():
     annotator = get_current_annotator()
+    side_quests = request.form.getlist('side-quest')
+    print("Side Quests: ", side_quests)
     if annotator.prev.id == int(request.form['prev_id']) and annotator.next.id == int(request.form['next_id']):
         print("Vote Action: " + request.form['action'])
         if request.form['action'] == 'Skip':
@@ -83,6 +85,7 @@ def vote():
         else:
             # ignore things that were deactivated in the middle of judging
             if annotator.prev.active and annotator.next.active:
+                perform_side_quest_votes(annotator, side_quests)
                 if request.form['action'] == 'Previous':
                     perform_vote(annotator, next_won=False)
                     decision = Decision(annotator, winner=annotator.prev, loser=annotator.next)
@@ -102,14 +105,19 @@ def vote():
 @requires_active_annotator(redirect_to='index')
 def begin():
     annotator = get_current_annotator()
+    side_quests = request.form.getlist('side-quest')
+    print("Side Quests: ", side_quests)
+
     if annotator.next.id == int(request.form['item_id']):
         annotator.ignore.append(annotator.next)
         if request.form['action'] == 'Done':
+            perform_side_quest_votes(annotator, side_quests)
+
             annotator.next.viewed.append(annotator)
             annotator.prev = annotator.next
             annotator.update_next(choose_next(annotator))
         elif request.form['action'] == 'Skip':
-            annotator.next = None # will be reset in index
+           annotator.next = None # will be reset in index
         db.session.commit()
     return redirect(url_for('index'))
 
@@ -229,3 +237,16 @@ def perform_vote(annotator, next_won):
     winner.sigma_sq = u_winner_sigma_sq
     loser.mu = u_loser_mu
     loser.sigma_sq = u_loser_sigma_sq
+
+def perform_side_quest_votes(annotator, quests):
+    current = annotator.next
+    if "beginner" in quests:
+        current.quest_beginner += 1
+    if "entertainment" in quests:
+        current.quest_entertainment += 1
+    if "esri" in quests:
+        current.quest_esri += 1
+    if "fintech" in quests:
+        current.quest_fintech += 1
+    if "security" in quests:
+        current.quest_security += 1

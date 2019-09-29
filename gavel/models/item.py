@@ -19,12 +19,23 @@ class Item(db.Model):
     mu = db.Column(db.Float)
     sigma_sq = db.Column(db.Float)
 
+    quest_beginner = db.Column(db.Integer)
+    quest_entertainment = db.Column(db.Integer)
+    quest_esri = db.Column(db.Integer)
+    quest_fintech = db.Column(db.Integer)
+    quest_security = db.Column(db.Integer)
+
     def __init__(self, name, location, description):
         self.name = name
         self.location = location
         self.description = description
         self.mu = crowd_bt.MU_PRIOR
         self.sigma_sq = crowd_bt.SIGMA_SQ_PRIOR
+        self.quest_beginner = 0
+        self.quest_entertainment = 0
+        self.quest_esri = 0
+        self.quest_fintech = 0
+        self.quest_security = 0
 
     @classmethod
     def by_id(cls, uid):

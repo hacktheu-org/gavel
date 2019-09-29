@@ -13,6 +13,36 @@
 <div class="item">
   <div class="info">
     <form action="/begin" method="post">
+      <h2>Side Quests</h2>
+      <p>Which Side Quests should this project be considered for? (Select 0 or more.)</p>
+
+      <div id="vote-quest-beginner" class="check-button button-full side-quest-check">
+        <input type="checkbox" name="side-quest" id="vote-quest-beginner-check" value="beginner">
+        <label for="vote-quest-beginner-check">Beginner</label>
+      </div>
+
+      <div id="vote-quest-entertainment" class="check-button button-full side-quest-check">
+        <input type="checkbox" name="side-quest" id="vote-quest-entertainment-check" value="entertainment">
+        <label for="vote-quest-entertainment-check">Entertainment</label>
+      </div>
+
+      <div id="vote-quest-esri" class="check-button button-full side-quest-check">
+        <input type="checkbox" name="side-quest" id="vote-quest-esri-check" value="esri">
+        <label for="vote-quest-esri-check">Esri API</label>
+      </div>
+
+      <div id="vote-quest-fintech" class="check-button button-full side-quest-check">
+        <input type="checkbox" name="side-quest" id="vote-quest-fintech-check" value="fintech">
+        <label for="vote-quest-fintech-check">Fintech (Galileo)</label>
+      </div>
+
+      <div id="vote-quest-security" class="check-button button-full side-quest-check">
+        <input type="checkbox" name="side-quest" id="vote-quest-security-check" value="security">
+        <label for="vote-quest-security-check">Security</label>
+      </div>
+
+      <hr/>
+
       <input type="submit" name="action" value="Skip" id="vote-skip" class="button-full">
       <input type="submit" name="action" value="Done" id="vote-done" class="button-full button-gap">
       <input type="hidden" name="item_id" value="{{ item.id }}">
