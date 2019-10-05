@@ -24,6 +24,12 @@ class Item(db.Model):
     quest_esri = db.Column(db.Integer)
     quest_fintech = db.Column(db.Integer)
     quest_security = db.Column(db.Integer)
+    quest_hardware = db.Column(db.Integer)
+    quest_startup = db.Column(db.Integer)
+    quest_domain = db.Column(db.Integer)
+    quest_gcloud = db.Column(db.Integer)
+    quest_mongodb = db.Column(db.Integer)
+    quest_uipath = db.Column(db.Integer)
 
     def __init__(self, name, location, description):
         self.name = name
@@ -36,6 +42,12 @@ class Item(db.Model):
         self.quest_esri = 0
         self.quest_fintech = 0
         self.quest_security = 0
+        self.quest_hardware = 0
+        self.quest_startup = 0
+        self.quest_domain = 0
+        self.quest_gcloud = 0
+        self.quest_mongodb = 0
+        self.quest_uipath = 0
 
     @classmethod
     def by_id(cls, uid):
