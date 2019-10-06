@@ -254,12 +254,4 @@ def perform_side_quest_votes(annotator, quests):
         current.quest_hardware += 1
     if "startup" in quests:
         current.quest_startup += 1
-    if "domain" in quests:
-        current.quest_domain += 1
-    if "gcloud" in quests:
-        current.quest_gcloud += 1
-    if "mongodb" in quests:
-        current.quest_mongodb += 1
-    if "uipath" in quests:
-        current.quest_uipath += 1
 
