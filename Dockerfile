@@ -24,8 +24,8 @@ COPY requirements.txt .
 RUN set -ex \
     && pip install --no-cache-dir -r requirements.txt
 
-EXPOSE 80
-ENV PORT=80
+EXPOSE 443
+ENV PORT=443
 
 # Start gunicorn with `nproc` threads.
 CMD ["sh", "-c", "python initialize.py && gunicorn -b :${PORT} -w $(nproc) gavel:app"]
