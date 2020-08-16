@@ -1,5 +1,5 @@
 # Use slim as per https://pythonspeed.com/articles/alpine-docker-python/
-FROM python:3.8-slim
+FROM python:3.7-slim
 
 WORKDIR /opt/gavel/
 
@@ -10,7 +10,8 @@ RUN apt-get update \
 # Install system package dependencies.
 RUN apt-get -y install python3-dev \
         libpq-dev \
-        gcc
+        gcc \
+        curl
 
 # Clean up apt-get.
 RUN apt-get clean \
@@ -28,6 +29,9 @@ ENV PORT=80
 
 # Start gunicorn with `nproc` threads.
 CMD ["sh", "-c", "python initialize.py && gunicorn -b :${PORT} -w $(nproc) gavel:app"]
+
+# Check to ensure the web server started.
+HEALTHCHECK CMD curl localhost:80
 
 # Copy over the rest of the project files.
 COPY . .
