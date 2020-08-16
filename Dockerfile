@@ -10,7 +10,8 @@ RUN apt-get update \
 # Install system package dependencies.
 RUN apt-get -y install python3-dev \
         libpq-dev \
-        gcc
+        gcc \
+        curl
 
 # Clean up apt-get.
 RUN apt-get clean \
