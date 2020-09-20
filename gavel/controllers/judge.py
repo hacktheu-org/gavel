@@ -146,7 +146,7 @@ def welcome():
 def welcome_done():
     def tx():
         annotator = get_current_annotator()
-        if request.form['action'] == 'Done':
+        if request.form['action'] == 'Continue':
             annotator.read_welcome = True
         db.session.commit()
     with_retries(tx)
