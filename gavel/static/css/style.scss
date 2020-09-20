@@ -271,16 +271,21 @@ input[type=submit] {
   border: 3px solid $current-color;
 }
 
+#vote-continue {
+  background-color: $current-color;
+  border: 3px solid $current-color;
+}
+
 #vote-skip {
   background-color: $vote-skip-color;
   border: 3px solid $vote-skip-color;
 }
 
-#vote-done {
-  background-color: $vote-done-color;
+#vote-submit {
+  background-color: $vote-submit-color;
 }
 
-#vote-done:disabled {
+#vote-submit:disabled {
   background-color: $light-grey;
   border: none;
 }
