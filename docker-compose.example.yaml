@@ -9,7 +9,7 @@
 version: '3.4'
 
 x-gavel-base: &gavel_base
-  image: ghcr.io/hacktheu-org/gavel/gavel:latest
+  image: ghcr.io/hacktheu-org/gavel:latest
   restart: always
   volumes:
     # Config file for Gavel to consume.
