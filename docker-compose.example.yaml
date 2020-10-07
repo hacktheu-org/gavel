@@ -1,31 +1,23 @@
-# 1) Ensure the following environmental variables are set
-# - DB_PASSWORD
-# - ADMIN_PASSWORD
-# - SECRET_KEY
-# - EMAIL_PASSWORD
-#
-# 2) Ensure you have a config.yaml defined in the same directory as this docker-compose.yaml file.
-# 3) Run `docker-compose up`.
 version: '3.4'
 
 x-gavel-base: &gavel_base
-  image: ghcr.io/hacktheu-org/gavel/gavel:latest
+  image: docker.pkg.github.com/hacktheu-org/gavel/gavel:latest
   restart: always
   volumes:
     # Config file for Gavel to consume.
     - ./config.yaml:/opt/gavel/config.yaml
   networks:
     - gavel-net
-  environment:
-    REDIS_URL: redis://redis/0
-    DATABASE_URL: postgresql://gavel:${DB_PASSWORD:?must set the DB_PASSWORD environment variable}@db/gavel
-    ADMIN_PASSWORD: ${ADMIN_PASSWORD}
-    SECRET_KEY: ${SECRET_KEY}
-    EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+
+x-gavel-env: &gavel_env
+  REDIS_URL: redis://redis/0
+  DATABASE_URL: postgresql://gavel:${DB_PASSWORD:?must set the DB_PASSWORD environment variable}@db/gavel
 
 services:
   gavel:
     <<: *gavel_base
+    environment:
+      <<: *gavel_env
     ports:
       - 80:80
     depends_on:
@@ -34,6 +26,8 @@ services:
 
   celery-worker:
     <<: *gavel_base
+    environment:
+      <<: *gavel_env
     depends_on:
       - gavel
     command: celery -A gavel:celery worker
